@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class MechamumTestDrive extends OpMode {
 
@@ -12,6 +13,7 @@ public class MechamumTestDrive extends OpMode {
     DcMotor rightFront;
     DcMotor rightBack;
 
+    Servo turn;
     @Override
     public void init() {
 
@@ -21,6 +23,8 @@ public class MechamumTestDrive extends OpMode {
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
 
+        turn = hardwareMap.get(Servo.class,"turn");
+
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -28,7 +32,7 @@ public class MechamumTestDrive extends OpMode {
         leftBack.setPower(0);
         rightFront.setPower(0);
         rightBack.setPower(0);
-
+        turn.setPosition(0);
     }
 
     @Override
@@ -43,7 +47,9 @@ public class MechamumTestDrive extends OpMode {
         rightFront.setPower(forward-strafe-rotation);
         rightBack.setPower(forward+strafe-rotation);
 
-
+        if(gamepad1.a){
+            turn.setPosition(1);
+        }
 
 
     }
