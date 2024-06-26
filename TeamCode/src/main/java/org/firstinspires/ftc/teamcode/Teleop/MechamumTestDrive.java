@@ -3,14 +3,25 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.SoftwareVersionWarningSource;
 
 public class MechamumTestDrive extends OpMode {
+
+
 
 
     DcMotor leftFront; //YOOOOOOOOOOOOOOOOOOOOOOOOOO//
     DcMotor leftBack;
     DcMotor rightFront;
     DcMotor rightBack;
+    DcMotor leftLS;
+    DcMotor rightLS;
+
+    int leftLSPos;
+    int rightLSPos;
+
+
+    final int TICKS_PER_INCH = 538;
 
     @Override
     public void init() {
@@ -20,9 +31,12 @@ public class MechamumTestDrive extends OpMode {
         leftBack = hardwareMap.get(DcMotor.class, "leftBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
+        leftLS = hardwareMap.get(DcMotor.class, "leftLS");
+        rightLS = hardwareMap.get(DcMotor.class, "rightLS");
 
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightLS.setDirection(DcMotorSimple.Direction.REVERSE);
 
         leftFront.setPower(0);
         leftBack.setPower(0);
@@ -44,7 +58,24 @@ public class MechamumTestDrive extends OpMode {
         rightBack.setPower(forward+strafe-rotation);
 
 
+        lSMove(30 * TICKS_PER_INCH, 30 * TICKS_PER_INCH, 0.25);
+
+    }
 
 
+
+    public void lSMove(int leftLSPOS, int rightLSPOS, double speed) {
+
+        leftLSPos += leftLSPOS;
+        rightLSPos += rightLSPOS;
+
+        leftLS.setTargetPosition(leftLSPos);
+        rightLS.setTargetPosition(rightLSPos);
+
+        leftLS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightLS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        leftLS.setPower(speed);
+        rightLS.setPower(speed);
     }
 }
