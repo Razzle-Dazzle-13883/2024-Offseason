@@ -6,14 +6,11 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import com.qualcomm.robotcore.util.SoftwareVersionWarningSource;
+//importing other classes to use the functions and etc defined in them
 
+public class MechamumTestDrive extends OpMode { //creating a class and extending it to use the functions and etc in the OpMode Class
 
-public class MechamumTestDrive extends OpMode {
-
-
-
-
-    DcMotor leftFront; //YOOOOOOOOOOOOOOOOOOOOOOOOOO//
+    DcMotor leftFront; //Creating and labeling DcMotors by using objects from the DcMotor class //
     DcMotor leftBack;
     DcMotor rightFront;
     DcMotor rightBack;
@@ -24,7 +21,7 @@ public class MechamumTestDrive extends OpMode {
     int rightLSPos;
 
 
-    final int TICKS_PER_INCH = 538;
+    final int TICKS_PER_INCH = 538;//Create a variable for ticks per inch
 
     Servo turn;
     @Override
@@ -68,24 +65,25 @@ public class MechamumTestDrive extends OpMode {
         }
 
 
-        lSMove(30 * TICKS_PER_INCH, 30 * TICKS_PER_INCH, 0.25);
+        lSMove(30 * TICKS_PER_INCH, 30 * TICKS_PER_INCH, 0.25); //Using the ticks per inch variable to assign a certain number of inches that the linear slides should go; Make as many as you need for the linear slides to go up and up
 
     }
 
 
 
-    public void lSMove(int leftLSPOS, int rightLSPOS, double speed) {
+    public void lSMove(int leftLSPOS, int rightLSPOS, double speed) { //the function lsMove is defined by the variables leftLSPOS, rightLSPOS, and speed
 
-        leftLSPos += leftLSPOS;
-        rightLSPos += rightLSPOS;
+        leftLSPos += leftLSPOS;//assigning the value of leftLSPOS to leftLSPos because
+        //if we used the leftLSPOS in the following code the value would change back to zero each time we have the linear slides move; so we use leftLSPos instead because when you change the value of that variable it doesn't return to zero
+        rightLSPos += rightLSPOS;//assigning the value of rightLSPOS to rightLSPos
 
-        leftLS.setTargetPosition(leftLSPos);
+        leftLS.setTargetPosition(leftLSPos); //setting the target position of the linear slide motors to be the assigned number of ticks
         rightLS.setTargetPosition(rightLSPos);
 
-        leftLS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftLS.setMode(DcMotor.RunMode.RUN_TO_POSITION); //telling it to run to that position
         rightLS.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        leftLS.setPower(speed);
+        leftLS.setPower(speed); //setting the speed as the variable speed defined earlier
         rightLS.setPower(speed);
     }
 }
